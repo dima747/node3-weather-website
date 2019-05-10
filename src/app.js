@@ -48,10 +48,14 @@ app.get('/weather', (req, res) => {
   geocode(address, (error, { latitude, longitude, location } = {}) => {
     if (error) return res.send({ error })
 
-    forecast(latitude, longitude, (error, { summary, temperature, precipProbability }) => {
+    forecast(latitude, longitude, (error, { summary, temperature, precipProbability, temperatureHigh, temperatureLow }) => {
       if (error) return res.send({ error })
 
-      const forecast = summary + ' Temperature is: ' + temperature + '. Chance of rain: ' + precipProbability + '%'
+      const forecast = summary 
+        + ' Temperature is: ' + temperature
+        + '. Max Today: ' + temperatureHigh
+        + '. Min Today: ' + temperatureLow
+        + '. Chance of rain: ' + precipProbability + '%'
       res.send({ forecast, location, address })
     })
   })
